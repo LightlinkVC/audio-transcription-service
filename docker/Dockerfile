@@ -20,4 +20,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python3", "grpc_server.py"]
+CMD ["python3", "-m", "cmd.main"]
