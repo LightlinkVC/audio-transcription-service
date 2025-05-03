@@ -14,7 +14,6 @@ class StreamProcessor(StreamProcessorI):
     def __init__(self, asr: Asr):
         self.asr = asr
         self.audio_buffer = []
-        self.unique_sentences = set()
 
     def process_chunk(self, chunk):
         audio_data = np.frombuffer(chunk.data, dtype=np.int16).astype(np.float32) / 32768.0
@@ -29,8 +28,5 @@ class StreamProcessor(StreamProcessorI):
             result = self.asr.process_iter()
             if result:
                 text = result[2].strip()
-                if text and text not in self.unique_sentences:
-                    logging.info(f"Partial transcription: {text}")
-                    self.unique_sentences.add(text)
-
-                    return text
+                logging.info(f"Partial transcription: {text}")
+                return text
