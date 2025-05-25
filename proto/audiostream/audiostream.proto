@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package audiostream;
+
+message AudioChunk {
+    int64 timestamp = 1;
+    bytes data = 2;
+    string room_id = 3;
+}
+
+message Acknowledgement {
+    bool status = 1;
+}
+
+// python -m grpc_tools.protoc -Iproto --python_out=protogen --pyi_out=protogen --grpc_python_out=protogen proto/audiostream/audiostream.proto
+service AudioStreamerService {
+    rpc StreamAudio(stream AudioChunk) returns (stream Acknowledgement);
+}

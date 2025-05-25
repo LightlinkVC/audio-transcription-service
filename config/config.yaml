@@ -1,0 +1,14 @@
+server:
+  host: 0.0.0.0
+  port: 8087
+
+model:
+  input_lang: ru
+  model_size: base
+  cache_dir: /app/model-cache
+
+stream:
+  input_channels_num: 2
+  input_frequency: 48000
+  output_channels_num: 1
+  output_frequency: 16000
