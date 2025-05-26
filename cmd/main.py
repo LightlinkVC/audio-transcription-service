@@ -1,10 +1,12 @@
 import asyncio
 import logging
+import os
 
 from whisper_streaming.whisper_online import FasterWhisperASR, OnlineASRProcessor
 
 from internal.model.whisper.whisper_asr import WhisperAsr
 from internal.usecase.stream_processor import StreamProcessor
+from internal.infrastructure.ws.centrifugo import CentrifugoClient
 from internal.delivery.grpc.service import serve
 
 logging.basicConfig(level=logging.INFO)
@@ -27,7 +29,9 @@ async def main():
     logging.info("ASR model initialized successfully")
 
     whisper_asr = WhisperAsr(asr, asr_processor)
-    stream_processor = StreamProcessor(whisper_asr)
+    client = CentrifugoClient(os.environ.get('CENTRIFUGO_API_URL'), os.environ.get('CENTRIFUGO_API_KEY'))
+
+    stream_processor = StreamProcessor(whisper_asr, client)
 
     await serve(stream_processor)
 
