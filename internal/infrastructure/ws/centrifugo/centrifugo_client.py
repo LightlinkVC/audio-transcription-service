@@ -1,6 +1,6 @@
 import json
 import requests
-from typing import Any, Dict, Union
+from typing import Any
 
 class CentrifugoClient:
     def __init__(self, api_url: str, api_key: str, timeout: float = 5.0):
@@ -42,7 +42,7 @@ class CentrifugoClient:
         :param group_id: Target group ID
         :param data: Data to publish
         """
-        channel = f"room:{group_id}"  # Замените на ваш реальный формат имени канала
+        channel = f"room:{group_id}"
         self.publish(channel, data)
 
     def _handle_response(self, response: requests.Response) -> None:
