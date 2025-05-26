@@ -19,7 +19,7 @@ class WhisperAsr(Asr):
         
         self.asr_processor = OnlineASRProcessor(
             asr=self.asr,
-            buffer_trimming=("segment", 5),
+            buffer_trimming=("segment", 15),
         )
 
         logging.info("ASR model initialized successfully")
