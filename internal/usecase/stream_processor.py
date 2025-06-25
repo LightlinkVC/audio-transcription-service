@@ -23,9 +23,9 @@ class StreamProcessor(StreamProcessorI):
         audio_data = librosa.resample(audio_data, orig_sr=48000, target_sr=16000)
 
         self.audio_buffer.extend(audio_data)
-        if len(self.audio_buffer) >= 480000:
-            self.asr.insert_audio_chunk(np.array(self.audio_buffer[:480000]))
-            self.audio_buffer = self.audio_buffer[480000:]
+        if len(self.audio_buffer) >= 240000:
+            self.asr.insert_audio_chunk(np.array(self.audio_buffer[:240000]))
+            self.audio_buffer = self.audio_buffer[240000:]
             
             result = self.asr.process_iter()
             if result:
